@@ -5,12 +5,12 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
 }
 
 datasource db {
     provider = "mysql"
-    // url      = env("DATABASE_URL") jika prisma versi 6, maka butuh url ini.
+    url      = env("DATABASE_URL")
 }
 
 model User {
