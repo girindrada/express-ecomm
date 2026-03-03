@@ -2,13 +2,19 @@ import express from "express"
 import cookieParser from "cookie-parser"
 import dotenv from "dotenv"
 import cors from "cors" 
+import path from "path"
+import { fileURLToPath } from "url"
 
 import authRoutes from "./routes/auth.route.js"
 import inventoryRoutes from "./routes/inventory.route.js"
 import productRoutes from "./routes/product.route.js"
 import cartRoutes from "./routes/cart.route.js"
 import invoicesRoutes from "./routes/invoice.route.js"
-// import statisticRoutes from "./routes/statistic.route.js"
+import statisticRoutes from "./routes/statistic.route.js"
+
+// setup dirneme ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // load dotenv
 dotenv.config();
@@ -22,13 +28,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
+app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 // routes
 app.use("/api/auth", authRoutes);
 app.use("/api/inventories", inventoryRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/carts", cartRoutes);
 app.use("/api/invoices", invoicesRoutes);
-// app.use("/api/statistics", statisticRoutes);
+app.use("/api/statistics", statisticRoutes);
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

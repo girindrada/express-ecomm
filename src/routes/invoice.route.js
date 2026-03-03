@@ -9,9 +9,10 @@ import {
  import { verifyToken } from "../middleware/verifyToken.js"
 
 const router = express.Router();
+
+// pasang middleware
 router.use(verifyToken);
 
-router.post('/checkout', checkout);
 router.get('/', getAllInvoices);
 router.get('/:id', getInvoiceById);
 router.get('/user/:email', getInvoiceByUserEmail);
